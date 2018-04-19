@@ -22,5 +22,8 @@ do
     fi
 
 done
+echo "Current state"
+docker ps
+
 echo "Anath container is not in healthy state after 120secs" >&2
 exit 1
