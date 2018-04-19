@@ -4,7 +4,6 @@
 
 set -eu
 
-
 trap '{ docker-compose --project-name smoke-test -f docker-compose.yml down ; }' EXIT
 
 docker-compose --project-name smoke-test -f docker-compose.yml up -d
@@ -23,7 +22,7 @@ do
 
 done
 echo "Current state"
-docker ps
+docker ps -a
 
 echo "Anath container is not in healthy state after 120secs" >&2
 exit 1
