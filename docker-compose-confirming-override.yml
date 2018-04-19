@@ -1,0 +1,23 @@
+---
+# Enable support for confirming signing requests.
+#
+# Use as shown below:
+#
+#  docker-compose \
+#    -f docker-compose.yml \
+#    -f docker-compose-confirming-override.yml \
+#    up
+
+version: "3.2"
+services:
+  anath-server:
+    environment:
+      - SPRING_PROFILES_ACTIVE=confirm
+      - SPRING_REDIS_URL=redis://redis
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:4-alpine
+    networks:
+      - anath-demo-net

@@ -1,0 +1,65 @@
+---
+# AnathPKI Demo. Do not use for production.
+#
+# Uses the latest release of anath
+
+version: "3.2"
+services:
+  userdb:
+    image: postgres:10-alpine
+    networks:
+      - anath-demo-net
+    volumes:
+      - type: volume
+        source: userdb
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./user-db-init
+        target: /docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  pkidb:
+    image: postgres:10-alpine
+    networks:
+      - anath-demo-net
+    volumes:
+      - type: volume
+        source: pkidb
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./pki-db-init
+        target: /docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  anath-server:
+    image: anathpki/server:latest
+    ports:
+      - 8080:8080
+    networks:
+      - anath-demo-net
+    env_file:
+      - anath-server.env
+    depends_on:
+      - pkidb
+      - userdb
+    healthcheck:
+      test: ["CMD-SHELL", "wget -O - -q -S http://localhost:8080/swagger-ui.html >/dev/null || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      
+networks:
+  anath-demo-net:
+    driver: bridge
+
+volumes:
+  userdb:
+  pkidb:
