@@ -24,4 +24,6 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-script: bash tests/smoke.sh
+script:
+  - bash tests/smoke.sh docker-compose.yml
+  - bash tests/smoke.sh docker-compose.yml docker-compose-confirming-override.yml
