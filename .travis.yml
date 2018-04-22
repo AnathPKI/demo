@@ -27,3 +27,5 @@ before_install:
 script:
   - bash tests/smoke.sh docker-compose.yml
   - bash tests/smoke.sh docker-compose.yml docker-compose-confirming-override.yml
+  - bash tests/smoke.sh docker-compose.yml docker-compose-test-override.yml
+  - bash tests/smoke.sh docker-compose.yml docker-compose-confirming-override.yml docker-compose-test-override.yml

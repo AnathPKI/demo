@@ -1,0 +1,22 @@
+---
+# Use test docker-image
+#
+# Use as shown below:
+#
+#  docker-compose \
+#    -f docker-compose.yml \
+#    -f docker-compose-test-override.yml \
+#    up
+#
+# Or in combination with confirm signing requests:
+#
+#  docker-compose \
+#    -f docker-compose.yml \
+#    -f docker-compose-confirming-override.yml \
+#    -f docker-compose-test-override.yml \
+#    up
+
+version: "3.2"
+services:
+  anath-server:
+    image: anathpki/server:test
