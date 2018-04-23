@@ -13,11 +13,20 @@ services:
   anath-server:
     environment:
       - SPRING_PROFILES_ACTIVE=confirm
-      - SPRING_REDIS_URL=redis://redis
+      - SPRING_REDIS_HOST=redis
+      - CH_ZHAW_BA_ANATH_CONFIRMATION_MAIL_SERVER=postfix
+      - CH_ZHAW_BA_ANATH_CONFIRMATION_MAIL_PORT=10025
+      - CH_ZHAW_BA_ANATH_CONFIRMATION_CONFIRMATION_SENDER=anath@example.org
     depends_on:
       - redis
+      - postfix
 
   redis:
     image: redis:4-alpine
+    networks:
+      - anath-demo-net
+
+  postfix:
+    image: modularitycontainers/postfix
     networks:
       - anath-demo-net
