@@ -2,7 +2,7 @@ Anath Demo
 ===
 
 Docker compose files providing a demo environment of
-(Anath)[https://github.com/AnathPKI].
+[Anath](https://github.com/AnathPKI).
 
 
 Requirements
