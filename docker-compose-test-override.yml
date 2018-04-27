@@ -20,3 +20,21 @@ version: "3.2"
 services:
   anath-server:
     image: anathpki/server:test
+
+  anath-client:
+    image: anathpki/client:test
+    # Move this configuration over to docker-compose.yml, once the
+    # client has been released.
+    ports:
+      - 8081:80
+    networks:
+      - anath-demo-net
+    env_file:
+      - anath-client.env
+    depends_on:
+      - anath-server
+    healthcheck:
+      test: ["CMD-SHELL", "wget -O - -q -S http://localhost:80/index.html >/dev/null || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
