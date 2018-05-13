@@ -4,6 +4,10 @@ Anath Demo
 Docker compose files providing a demo environment of
 [Anath](https://github.com/AnathPKI).
 
+After successful launch, the server is reachable under
+http://localhost:8080/. The frontend is available under
+http://localhost:8081/.
+
 
 Requirements
 ---
